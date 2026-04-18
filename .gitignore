@@ -1,0 +1,10 @@
+# Kişisel dosyaların kazara GitHub'a yüklenmesini engelle
+*.pdf
+*.docx
+*.xlsx
+*.pptx
+
+# Sistem dosyaları
+.DS_Store
+Thumbs.db
+desktop.ini
