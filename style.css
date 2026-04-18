@@ -394,6 +394,26 @@ a {
   letter-spacing: 0.3px;
 }
 
+.project-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  transition: color var(--transition);
+}
+
+.project-card__link:hover {
+  color: var(--color-accent-hover);
+}
+
+.project-card__link svg {
+  width: 16px;
+  height: 16px;
+}
+
 /* --- Footer --- */
 .footer {
   padding: 40px 24px;
