@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://javerto.github.io/sitemap.xml
