@@ -7,16 +7,16 @@
 
 /* --- CSS Değişkenleri (Renk Paleti) --- */
 :root {
-  --color-bg: #ffffff;
-  --color-bg-alt: #f8fafc;
-  --color-text: #1e293b;
-  --color-text-light: #64748b;
-  --color-accent: #4b7be5;
-  --color-accent-hover: #3a62c4;
-  --color-border: #e2e8f0;
+  --color-bg: #faf8f5;
+  --color-bg-alt: #f1efe9;
+  --color-text: #2d2a26;
+  --color-text-light: #595551;
+  --color-accent: #b8860b;
+  --color-accent-hover: #9c7108;
+  --color-border: #e6e2d8;
   --color-card-bg: #ffffff;
-  --color-tag-bg: #eef2ff;
-  --color-tag-text: #4b7be5;
+  --color-tag-bg: #fdf6e3;
+  --color-tag-text: #b8860b;
   --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --max-width: 1100px;
   --radius: 10px;
@@ -64,7 +64,7 @@ a {
   left: 0;
   width: 100%;
   z-index: 100;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(250, 248, 245, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid transparent;
@@ -448,7 +448,7 @@ a {
     left: 0;
     width: 100%;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.97);
+    background-color: rgba(250, 248, 245, 0.97);
     backdrop-filter: blur(12px);
     padding: 24px;
     gap: 20px;
