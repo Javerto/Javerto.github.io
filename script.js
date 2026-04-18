@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const formStatus = document.getElementById('form-status');
 
   // EmailJS'i kendi Public Key'inizle başlatın
-  // emailjs.init("YOUR_PUBLIC_KEY"); 
+  emailjs.init("hpBBeC-vYwYUvVYwY"); 
 
   if (contactForm) {
     contactForm.addEventListener('submit', function(event) {
@@ -159,30 +159,20 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.innerHTML = 'Gönderiliyor...';
       formStatus.textContent = '';
 
-      // NOT: Aşağıdaki kodun çalışması için EmailJS hesabınızdan SERVICE_ID ve TEMPLATE_ID almalısınız.
-      // emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
-      //   .then(() => {
-      //     formStatus.className = 'form__status success';
-      //     formStatus.textContent = 'Mesajınız başarıyla gönderildi!';
-      //     contactForm.reset();
-      //   }, (error) => {
-      //     formStatus.className = 'form__status error';
-      //     formStatus.textContent = 'Bir hata oluştu. Lütfen tekrar deneyin.';
-      //     console.error('EmailJS Hatası:', error);
-      //   })
-      //   .finally(() => {
-      //     submitBtn.disabled = false;
-      //     submitBtn.innerHTML = originalBtnText;
-      //   });
-
-      // Şimdilik test için simüle ediyoruz:
-      setTimeout(() => {
-        formStatus.className = 'form__status success';
-        formStatus.textContent = 'EmailJS kurulumu yapıldığında bu mesaj iletilecektir.';
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnText;
-        contactForm.reset();
-      }, 1500);
+      emailjs.sendForm('service_a5fo4ac', 'template_l1jbzkk', this)
+        .then(() => {
+          formStatus.className = 'form__status success';
+          formStatus.textContent = 'Mesajınız başarıyla gönderildi!';
+          contactForm.reset();
+        }, (error) => {
+          formStatus.className = 'form__status error';
+          formStatus.textContent = 'Bir hata oluştu. Lütfen tekrar deneyin.';
+          console.error('EmailJS Hatası:', error);
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+        });
     });
   }
 });
