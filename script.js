@@ -176,3 +176,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+
+const caseStudies = {'Finansal Raporlama Otomasyonu': {'problem': 'Manuel veri toplama süreci çok zaman alıyordu ve insan hatasına açıktı. Raporların hazırlanması her hafta 3 iş günü sürüyordu.', 'solution': 'Excel VBA kullanarak dinamik veri çekme ve raporlama makroları geliştirildi. Veriler otomatik olarak valide edildi ve standart rapor formatlarına dönüştürüldü.', 'result': 'Raporlama süresi 3 günden 1 saate indirildi (%80 iyileşme). Hatalı veri girişi sıfıra indirildi.'}, 'ETL ve Veri Raporlama Otomasyonu': {'problem': 'Banka operasyonlarından gelen büyük veri setlerinin SPSS Modeler ile işlenmesi sırasında tekrarlayan manuel işlemler verimliliği düşürüyordu.', 'solution': 'Python tabanlı bir ETL betiği yazılarak veri temizleme ve dönüştürme süreçleri otomatikleştirildi. Veri ambarı entegrasyonu sağlandı.', 'result': 'Veri işleme hızı %60 arttı ve raporlama süreçleri gerçek zamanlıya yakın hale getirildi.'}};
+
+document.querySelectorAll('.project-card__case-study').forEach(btn => {
+  btn.onclick = () => {
+    const projectTitle = btn.closest('.project-card').querySelector('.project-card__title').innerText;
+    const data = caseStudies[projectTitle];
+    
+    if (data) {
+      const modalBody = document.getElementById('modal-body');
+      modalBody.innerHTML = `
+        <h2 style="margin-bottom: 20px; color: var(--color-accent);">${projectTitle}</h2>
+        <div style="margin-bottom: 20px;">
+          <strong style="display: block; color: var(--color-text); margin-bottom: 5px;">Problem:</strong>
+          <p style="color: var(--color-text-light);">${data.problem}</p>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <strong style="display: block; color: var(--color-text); margin-bottom: 5px;">Çözüm:</strong>
+          <p style="color: var(--color-text-light);${data.solution}</p>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <strong style="display: block; color: var(--color-text); margin-bottom: 5px;">Sonuç:</strong>
+          <p style="color: var(--color-text-light);${data.result}</p>
+        </div>
+      `;
+      document.getElementById('case-study-modal').style.display = 'flex';
+    }
+  };
+});
+
+document.getElementById('close-modal').onclick = () => {
+  document.getElementById('case-study-modal').style.display = 'none';
+});
+
+window.onclick = (event) => {
+  if (event.target == document.getElementById('case-study-modal')) {
+    document.getElementById('case-study-modal').style.display = 'none';
+  }
+};

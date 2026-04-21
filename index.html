@@ -222,6 +222,7 @@
        İLETİŞİM BÖLÜMÜ
        ============================================ -->
   
+  
   <section class="section learning" id="learning">
     <div class="section__container">
       <p class="section__label">Sürekli Gelişim</p>
@@ -229,13 +230,15 @@
       <div class="section__divider"></div>
       <div class="learning__grid">
         <div class="learning-card reveal">
-          <div class="learning-card__date">Yükleniyor...</div>
-          <h3 class="learning-card__title">İlk Notlarım Yakında Burada!</h3>
-          <p class="learning-card__desc">Her hafta veri analitiği, finansal modelleme ve yeni araçlar hakkında kısa notlar paylaşacağım.</p>
+          <div class="learning-card__date">Güncel Notlar</div>
+          <h3 class="learning-card__title">Sürekli Öğrenme Yolculuğu</h3>
+          <p class="learning-card__desc">Sektörel analizler, veri analitiği ipuçları ve öğrendiğim yeni araçlar hakkında düzenli notlar paylaşıyorum.</p>
+          <a href="blog.html" class="project-card__case-study" style="margin-top: 15px; display: block; text-align: center;">Blog'a Git →</a>
         </div>
       </div>
     </div>
   </section>
+
 <section class="section contact" id="contact">
     <div class="section__container">
 
@@ -305,6 +308,16 @@
   </footer>
 
   <script src="script.js"></script>
+
+  <!-- Case Study Modal -->
+  <div id="case-study-modal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(5px); align-items: center; justify-content: center;">
+    <div class="modal-content" style="background-color: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius); width: 90%; max-width: 800px; max-height: 80vh; overflow-y: auto; padding: 40px; position: relative; color: var(--color-text);">
+      <span id="close-modal" style="position: absolute; right: 20px; top: 20px; cursor: pointer; font-size: 1.5rem; color: var(--color-text-light);">&times;</span>
+      <div id="modal-body">
+        <!-- Content injected by JS -->
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
