@@ -111,6 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- STABLE MODAL SYSTEM ---
+  
+
+
+  // --- GENERIC MODAL SYSTEM ---
   const caseStudies = {
     "Finansal Raporlama Otomasyonu": {
       "problem": "Manuel veri toplama süreci çok zaman alıyordu ve insan hatasına açıktı. Raporların hazırlanması her hafta 3 iş günü sürüyordu.",
@@ -124,11 +128,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const modal = document.getElementById('case-study-modal');
+  const blogPosts = {"Veri Temizliği: Neden Analiz Süresinin %80'ini Alır?": {'content': 'Veri temizliği, ham verilerin analiz edilebilir hale getirilmesi sürecidir. Genellikle eksik verilerin doldurulması, hatalı girişlerin düzeltilmesi ve aykırı değerlerin (outliers) yönetilmesini içerir. <br><br><b>Neden bu kadar zaman alır?</b> Çünkü veri her zaman kirli gelir. Farklı kaynaklardan gelen formatlar, yazım hataları ve mantıksal tutarsızlıklar, analistin veriyi anlaması ve temizlemesi için büyük bir çaba gerektirir. <br><br><b>Süreç nasıl yönetilmeli?</b><br>1. Veriyi Tanıma<br>2. Eksik Verileri Analiz Etme<br>3. Standartlaştırma<br>4. Validasyon.'}};
+
+  const modal = document.getElementById('global-modal');
   const modalBody = document.getElementById('modal-body');
   const closeBtn = document.getElementById('close-modal');
 
   document.addEventListener('click', (e) => {
+    // Case Study Click
     if (e.target.classList.contains('project-card__case-study')) {
       const title = e.target.closest('.project-card').querySelector('.project-card__title').innerText;
       const data = caseStudies[title];
@@ -143,6 +150,21 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.display = 'flex';
       }
     }
+    
+    // Blog Post Click
+    if (e.target.classList.contains('blog-card__link')) {
+      const title = e.target.closest('.blog-card').querySelector('.blog-card__title').innerText;
+      const data = blogPosts[title];
+      if (data) {
+        modalBody.innerHTML = `
+          <h2 style="margin-bottom: 20px; color: var(--color-accent);">${title}</h2>
+          <div style="line-height: 1.8; color: var(--color-text-light);">${data.content}</div>
+        `;
+        modal.classList.add('active');
+        modal.style.display = 'flex';
+      }
+    }
+
     if (e.target === modal) {
       modal.classList.remove('active');
       setTimeout(() => { modal.style.display = 'none'; }, 300);
@@ -155,4 +177,3 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => { modal.style.display = 'none'; }, 300);
     };
   }
-});
