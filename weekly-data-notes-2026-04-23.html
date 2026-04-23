@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Haftalık Veri Notları - 23 Nisan 2026 | Yiğit Tenekeci</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .blog-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    .blog-content h1 {
+      color: #2c5aa0;
+      margin-bottom: 1rem;
+    }
+    .blog-content h2 {
+      color: #3a6fbd;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    .blog-content h3 {
+      color: #4a7fc7;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .blog-content code {
+      background: #f4f4f4;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+    .blog-content pre {
+      background: #f8f8f8;
+      padding: 1rem;
+      border-radius: 5px;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    .blog-content .date {
+      color: #666;
+      font-style: italic;
+      margin-bottom: 2rem;
+    }
+    .blog-content .highlight {
+      background: #fffacd;
+      padding: 1rem;
+      border-left: 4px solid #ffd700;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">Yiğit<span>.</span></a>
+      <ul class="navbar__links" id="nav-links">
+        <li><a href="index.html#hero">Ana Sayfa</a></li>
+        <li><a href="index.html#about">Hakkımda</a></li>
+        <li><a href="index.html#projects">Projeler</a></li>
+        <li><a href="index.html#contact">İletişim</a></li>
+      </ul>
+      <div class="theme-switcher">
+        <button class="theme-btn" data-set="light" title="Açık Tema"></button>
+        <button class="theme-btn active" data-set="warm" title="Sıcak Tema"></button>
+        <button class="theme-btn" data-set="dark" title="Koyu Tema"></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="blog-content">
+    <h1>Haftalık Veri Notları - 23 Nisan 2026</h1>
+    <div class="date">Yayınlanma Tarihi: 23 Nisan 2026</div>
+
+    <h2>Finansal Veri Analizinde 2026 Trendleri</h2>
+    
+    <p>Bu hafta finansal veri analizi, Python, SQL ve ETL teknolojilerindeki en son gelişmeleri inceliyoruz. Özellikle yapay zeka entegrasyonu ve gerçek zamanlı analiz sistemleri öne çıkıyor.</p>
+
+    <div class="highlight">
+      <strong>Önemli Trendler:</strong>
+      <ul>
+        <li>Yapay Zeka ile Geliştirilmiş Finansal Tahmin Modelleri</li>
+        <li>Gerçek Zamanlı Risk Yönetimi Sistemleri</li>
+        <li>Bulut Tabanlı ETL Çözümleri</li>
+        <li>SQL Performans Optimizasyonu</li>
+      </ul>
+    </div>
+
+    <h2>Python ile Finansal Veri Analizi</h2>
+    
+    <h3>Pandas ve NumPy Kullanarak Temel Analiz</h3>
+    
+    <p>Python finansal analiz için mükemmel bir araç. İşte basit bir hisse senedi analizi örneği:</p>
+
+    <pre><code>import pandas as pd
+import numpy as np
+import yfinance as yf
+import matplotlib.pyplot as plt
+
+# Hisse senedi verilerini çekme
+def get_stock_data(ticker, period="1y"):
+    stock = yf.Ticker(ticker)
+    data = stock.history(period=period)
+    return data
+
+# Temel teknik analiz
+def technical_analysis(data):
+    # Basit Hareketli Ortalama
+    data['SMA_20'] = data['Close'].rolling(window=20).mean()
+    data['SMA_50'] = data['Close'].rolling(window=50).mean()
+    
+    # RSI Hesaplama
+    delta = data['Close'].diff()
+    gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
+    loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
+    rs = gain / loss
+    data['RSI'] = 100 - (100 / (1 + rs))
+    
+    return data
+
+# Örnek kullanım
+if __name__ == "__main__":
+    # Apple hisse senedi verileri
+    aapl_data = get_stock_data("AAPL")
+    analyzed_data = technical_analysis(aapl_data)
+    
+    print("Son 5 günlük veriler:")
+    print(analyzed_data.tail())
+    
+    # Grafik çizimi
+    plt.figure(figsize=(12, 6))
+    plt.plot(analyzed_data.index, analyzed_data['Close'], label='Kapanış Fiyatı')
+    plt.plot(analyzed_data.index, analyzed_data['SMA_20'], label='20 Günlük SMA')
+    plt.plot(analyzed_data.index, analyzed_data['SMA_50'], label='50 Günlük SMA')
+    plt.legend()
+    plt.title('AAPL Hisse Senedi Analizi')
+    plt.show()</code></pre>
+
+    <h2>SQL ile Finansal Veri Sorgulama</h2>
+    
+    <h3>Window Functions ile Gelişmiş Analiz</h3>
+    
+    <p>SQL'de pencere fonksiyonları finansal analiz için çok güçlüdür. İşte örnek sorgular:</p>
+
+    <pre><code>-- Portföy performans analizi
+WITH portfolio_performance AS (
+    SELECT 
+        stock_symbol,
+        trade_date,
+        close_price,
+        LAG(close_price) OVER (PARTITION BY stock_symbol ORDER BY trade_date) as prev_close,
+        -- Günlük getiri
+        (close_price - LAG(close_price) OVER (PARTITION BY stock_symbol ORDER BY trade_DATE)) / 
+        LAG(close_price) OVER (PARTITION BY stock_symbol ORDER BY trade_DATE) * 100 as daily_return
+    FROM stock_prices
+    WHERE trade_date >= CURRENT_DATE - INTERVAL '90 days'
+),
+performance_summary AS (
+    SELECT 
+        stock_symbol,
+        AVG(daily_return) as avg_daily_return,
+        STDDEV(daily_return) as volatility,
+        COUNT(*) as trading_days
+    FROM portfolio_performance
+    WHERE daily_return IS NOT NULL
+    GROUP BY stock_symbol
+)
+SELECT 
+    stock_symbol,
+    avg_daily_return,
+    volatility,
+    -- Sharpe Oranı (basitleştirilmiş)
+    avg_daily_return / NULLIF(volatility, 0) as sharpe_ratio
+FROM performance_summary
+ORDER BY sharpe_ratio DESC;</code></pre>
+
+    <h2>Modern ETL İşlem Hatları</h2>
+    
+    <h3>Python ile Basit ETL Pipeline</h3>
+    
+    <p>İşte finansal veriler için basit bir ETL pipeline örneği:</p>
+
+    <pre><code>import pandas as pd
+import requests
+import sqlite3
+from datetime import datetime
+
+class FinancialETL:
+    def __init__(self, api_key=None):
+        self.api_key = api_key
+        self.raw_data = None
+        self.processed_data = None
+    
+    def extract(self, source_type='api', **kwargs):
+        """Veri çekme işlemi"""
+        if source_type == 'api':
+            # Örnek API çağrısı
+            url = f"https://api.example.com/financial-data?apikey={self.api_key}"
+            response = requests.get(url)
+            self.raw_data = response.json()
+        elif source_type == 'file':
+            # Dosyadan okuma
+            file_path = kwargs.get('file_path')
+            self.raw_data = pd.read_csv(file_path)
+        
+        return self.raw_data
+    
+    def transform(self):
+        """Veri dönüşümü"""
+        if isinstance(self.raw_data, dict):
+            # JSON verisini DataFrame'e dönüştür
+            df = pd.DataFrame(self.raw_data['data'])
+        else:
+            df = self.raw_data.copy()
+        
+        # Temizleme ve dönüşüm işlemleri
+        df['date'] = pd.to_datetime(df['date'])
+        df['price'] = pd.to_numeric(df['price'], errors='coerce')
+        df['volume'] = pd.to_numeric(df['volume'], errors='coerce')
+        
+        # Hesaplanmış alanlar
+        df['price_change'] = df['price'].pct_change()
+        df['volume_ma'] = df['volume'].rolling(window=5).mean()
+        
+        self.processed_data = df.dropna()
+        return self.processed_data
+    
+    def load(self, target='database', **kwargs):
+        """Veri yükleme"""
+        if target == 'database':
+            conn = sqlite3.connect(kwargs.get('db_path', 'financial_data.db'))
+            self.processed_data.to_sql('financial_data', conn, if_exists='append', index=False)
+            conn.close()
+        elif target == 'file':
+            self.processed_data.to_csv(kwargs.get('output_path'), index=False)
+    
+    def run_pipeline(self, source_type='api', target='database', **kwargs):
+        """Tam ETL pipeline'ını çalıştır"""
+        print("Veri çekme başlıyor...")
+        self.extract(source_type, **kwargs)
+        
+        print("Veri dönüşümü başlıyor...")
+        self.transform()
+        
+        print("Veri yükleme başlıyor...")
+        self.load(target, **kwargs)
+        
+        print("ETL işlemi tamamlandı!")
+
+# Kullanım örneği
+if __name__ == "__main__":
+    etl = FinancialETL(api_key="your_api_key_here")
+    etl.run_pipeline(source_type='file', file_path='stock_data.csv', target='database', db_path='financial.db')</code></pre>
+
+    <h2>Teknoloji Trendleri ve Gelecek Öngörüleri</h2>
+    
+    <h3>2026'da Beklenen Gelişmeler</h3>
+    
+    <ul>
+      <li><strong>Yapay Zeka Entegrasyonu:</strong> GPT-4 ve daha gelişmiş modeller finansal tahminlerde daha fazla kullanılacak</li>
+      <li><strong>Gerçek Zamanlı Analiz:</strong> Streaming veri işleme sistemleri daha yaygın hale gelecek</li>
+      <li><strong>Bulut Teknolojileri:</strong> AWS, Azure ve GCP finansal hizmetler için özelleşmiş çözümler sunacak</li>
+      <li><strong>Güvenlik ve Uyumluluk:</strong> Finansal veri güvenliği standartları daha da sıkılaşacak</li>
+    </ul>
+
+    <h2>Pratik İpuçları ve En İyi Uygulamalar</h2>
+    
+    <div class="highlight">
+      <strong>Python için İpuçları:</strong>
+      <ul>
+        <li>Büyük veri setleri için <code>pandas</code> yerine <code>polars</code> kullanmayı düşünün</li>
+        <li>Veri tiplerini optimize ederek bellek kullanımını azaltın</li>
+        <li>JIT derleme için <code>numba</code> kullanın</li>
+      </ul>
+    </div>
+
+    <div class="highlight">
+      <strong>SQL için İpuçları:</strong>
+      <ul>
+        <li>CTE'ler (Common Table Expressions) karmaşık sorguları basitleştirir</li>
+        <li>Window functions analitik işlemler için mükemmeldir</li>
+        <li>Index kullanımı sorgu performansını önemli ölçüde artırır</li>
+      </ul>
+    </div>
+
+    <h2>Sonuç</h2>
+    
+    <p>Finansal veri analizi sürekli gelişen bir alan. Python ve SQL gibi temel araçlara hakim olmak, yeni teknolojileri öğrenmek ve en iyi uygulamaları takip etmek başarı için kritik önem taşıyor. Önümüzdeki haftalarda bu konulara daha derinlemesine bakmaya devam edeceğiz.</p>
+
+    <p><strong>Bir sonraki hafta:</strong> Makine öğrenmesi ile finansal tahmin modelleri ve backtesting stratejileri.</p>
+
+    <p style="margin-top: 3rem; text-align: center; color: #666;">
+      Bu içerik 23 Nisan 2026 tarihinde yayınlanmıştır.<br>
+      Sorularınız için: <a href="mailto:yigit@javerto.com">yigit@javerto.com</a>
+    </p>
+  </div>
+
+  <footer class="footer">
+    <p class="footer__text">&copy; 2026 <a href="index.html#hero">Yiğit Tenekeci</a> — Tüm hakları saklıdır.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
