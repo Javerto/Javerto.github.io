@@ -13,54 +13,61 @@
       line-height: 1.6;
     }
     .blog-content h1 {
-      color: #2c5aa0;
+      color: var(--color-text);
       margin-bottom: 1rem;
     }
     .blog-content h2 {
-      color: #3a6fbd;
+      color: var(--color-text);
       margin-top: 2rem;
       margin-bottom: 1rem;
     }
     .blog-content h3 {
-      color: #4a7fc7;
+      color: var(--color-text-light);
       margin-top: 1.5rem;
       margin-bottom: 0.5rem;
     }
     .blog-content code {
-      background: #f4f4f4;
+      background: var(--color-bg-alt);
+      color: var(--color-text);
       padding: 0.2rem 0.4rem;
       border-radius: 3px;
       font-family: 'Courier New', monospace;
+      border: 1px solid var(--color-border);
     }
     .blog-content pre {
-      background: #f8f8f8;
+      background: var(--color-bg-alt);
+      color: var(--color-text);
       padding: 1rem;
       border-radius: 5px;
       overflow-x: auto;
       margin: 1rem 0;
+      border: 1px solid var(--color-border);
     }
     .blog-content .date {
-      color: #666;
+      color: var(--color-text-light);
       font-style: italic;
       margin-bottom: 2rem;
     }
     .blog-content .highlight {
-      background: #fffacd;
+      background: var(--color-bg-alt);
+      color: var(--color-text);
       padding: 1rem;
-      border-left: 4px solid #ffd700;
+      border-left: 4px solid var(--color-accent);
       margin: 1rem 0;
+      border-radius: 5px;
     }
     .blog-content .stat-box {
-      background: #e8f4fd;
-      border-left: 4px solid #2c5aa0;
+      background: var(--color-bg-alt);
+      border-left: 4px solid var(--color-accent);
       padding: 1rem;
       margin: 1.5rem 0;
       border-radius: 5px;
+      color: var(--color-text);
     }
     .blog-content .stat-number {
       font-size: 2rem;
       font-weight: bold;
-      color: #2c5aa0;
+      color: var(--color-accent);
     }
   </style>
 </head>
@@ -346,9 +353,9 @@ print(f"Aykırı değerler: {outliers}")</code></pre>
 
     <p><strong>Bir sonraki adım:</strong> Veri temizleme süreçlerinizi otomatikleştirmek ve standardize etmek için bir veri kalite çerçevesi oluşturun.</p>
 
-    <p style="margin-top: 3rem; text-align: center; color: #666;">
+    <p style="margin-top: 3rem; text-align: center; color: var(--color-text-light);">
       Bu içerik 24 Nisan 2026 tarihinde yayınlanmıştır.<br>
-      Sorularınız için: <a href="mailto:yigit@javerto.com">yigit@javerto.com</a>
+      Sorularınız için: <a href="mailto:yigit@javerto.com" style="color: var(--color-accent);">yigit@javerto.com</a>
     </p>
   </div>
 
