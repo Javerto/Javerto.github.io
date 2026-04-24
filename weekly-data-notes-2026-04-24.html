@@ -11,24 +11,28 @@
       margin: 0 auto;
       padding: 2rem;
       line-height: 1.6;
+      color: var(--color-text);
+      background-color: var(--color-bg);
     }
     .blog-content h1 {
-      color: var(--color-text);
+      color: var(--color-accent);
       margin-bottom: 1rem;
     }
     .blog-content h2 {
-      color: var(--color-text);
+      color: var(--color-accent);
       margin-top: 2rem;
       margin-bottom: 1rem;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 0.5rem;
     }
     .blog-content h3 {
-      color: var(--color-text-light);
+      color: var(--color-accent);
       margin-top: 1.5rem;
       margin-bottom: 0.5rem;
     }
     .blog-content code {
       background: var(--color-bg-alt);
-      color: var(--color-text);
+      color: var(--color-accent);
       padding: 0.2rem 0.4rem;
       border-radius: 3px;
       font-family: 'Courier New', monospace;
@@ -49,25 +53,26 @@
       margin-bottom: 2rem;
     }
     .blog-content .highlight {
-      background: var(--color-bg-alt);
+      background: var(--color-tag-bg);
       color: var(--color-text);
       padding: 1rem;
       border-left: 4px solid var(--color-accent);
       margin: 1rem 0;
-      border-radius: 5px;
+      border-radius: 0 var(--radius) var(--radius) 0;
     }
     .blog-content .stat-box {
       background: var(--color-bg-alt);
       border-left: 4px solid var(--color-accent);
       padding: 1rem;
       margin: 1.5rem 0;
-      border-radius: 5px;
+      border-radius: var(--radius);
       color: var(--color-text);
     }
     .blog-content .stat-number {
       font-size: 2rem;
       font-weight: bold;
       color: var(--color-accent);
+      margin-bottom: 0.5rem;
     }
   </style>
 </head>
@@ -91,224 +96,48 @@
 
   <div class="blog-content">
     <h1>Pandas vs Polars: Modern Data Processing Showdown</h1>
-    <div class="date">Yayınlanma Tarihi: 24 April 2026</div>
+    <div class="date">Yayınlanma Tarihi: 24 Nisan 2026</div>
 
     <div class="stat-box">
       <div class="stat-number">20x</div>
       <p><strong>Araştırmalar gösteriyor ki:</strong> Polars, pandas'a göre ortalama 20 kat daha hızlı veri işleme sağlıyor ve %60-80 daha az bellek kullanıyor.</p>
     </div>
 
+    <p>On yılı aşkın süredir pandas, Python'daki veri analizi için varsayılan kütüphaneydi. Ancak veri setleri büyüdükçe ve iş akışları karmaşıklaştıkça, pandas sınırlarını göstermeye başladı. Polars, performans ve paralellik için sıfırdan Rust ile tasarlanmış modern bir dataframe motoru olarak karşımıza çıkıyor.</p>
 
-For over a decade, pandas has been the default library for data analysis in Python. 
-But as datasets grew larger and data workflows became more complex, pandas started 
-to show its limits. Enter Polars - a modern dataframe engine designed from the ground 
-up for performance, scalability, and parallelism.
+    <h2>Performans Farkı: Rakamlar Yalan Söylemez</h2>
+    <p>Araştırmalarımız, Polars'ın pandas'a kıyasla tutarlı bir şekilde 15-25 kat daha hızlı yürütme ve %60-80 daha düşük bellek kullanımı sağladığını gösteriyor:</p>
+    <ul>
+      <li><strong>ETL Boru Hattı:</strong> 42 dakika → 2.1 dakika</li>
+      <li><strong>Veri Agregasyonu:</strong> 18 dakika → 52 saniye</li>
+      <li><strong>Gerçek Zamanlı Analiz:</strong> 8 dakika → 22 saniye</li>
+    </ul>
 
+    <h2>Neden Polars Daha Hızlı?</h2>
+    <p>Pandas, NumPy üzerine kuruludur ve tek iş parçacıklı (single-threaded) çalışır. Polars ise Apache Arrow kullanır ve Rust ile yazılmıştır:</p>
+    <ul>
+      <li><strong>Vektörize yürütme:</strong> Daha iyi CPU kullanımı sağlar.</li>
+      <li><strong>Otomatik paralellik:</strong> Tüm çekirdekleri kullanır.</li>
+      <li><strong>Lazy evaluation:</strong> Sorguları çalıştırmadan önce optimize eder.</li>
+    </ul>
 
-
-## Performance Gap: The Numbers Don't Lie
-
-Our research shows Polars consistently delivers **15-25x faster execution** with 
-**60-80% lower memory usage** compared to pandas. This isn't just theoretical - 
-in real-world production scenarios:
-
-- **ETL Pipeline**: 42 minutes → 2.1 minutes (20x faster)
-- **Data Aggregation**: 18 minutes → 52 seconds (21x faster)  
-- **Real-time Analytics**: 8 minutes → 22 seconds (22x faster)
-
-The performance improvements are so significant that sticking with pandas for large 
-datasets feels like using a flip phone in the smartphone era.
-
-
-
-## Architectural Differences: Why Polars Is Faster
-
-### Pandas Architecture
-Pandas is built on NumPy arrays and operates primarily in-memory with single-threaded 
-execution. While this worked well for smaller datasets, it struggles with modern data 
-volumes due to:
-
-- High memory consumption (often 3-4x dataset size)
-- Single-core processing only
-- No query optimization
-- Inefficient memory layout
-
-### Polars Architecture  
-Polars leverages Apache Arrow for columnar memory layout and is written in Rust for 
-performance. Key advantages include:
-
-- **Zero-copy memory sharing** between operations
-- **Vectorized execution** for better CPU utilization  
-- **Automatic parallelism** across all available cores
-- **Lazy evaluation** with query optimization
-- **Efficient columnar processing** for analytics workloads
-
-
-
-## Code Examples: Pandas vs Polars
-
-### Basic Data Loading and Filtering
-
-**Pandas Approach:**
-```python
-import pandas as pd
-import time
-
-# Load data (slow for large files)
-df = pd.read_csv('large_dataset.csv')  # Takes 3 minutes for 2GB file
-
-# Filter operations
-df_filtered = df[df['status'] == 'active']
-df_grouped = df_filtered.groupby('category')['revenue'].sum()
-```
-
-**Polars Approach:**
-```python
+    <pre><code># Polars ile Lazy Evaluation örneği
 import polars as pl
-import time
 
-# Load data with lazy evaluation (much faster)
-df = pl.scan_csv('large_dataset.csv')  # Takes 15 seconds
-
-# Chain operations with lazy evaluation
+df = pl.scan_csv('huge_file.csv')
 result = (df
     .filter(pl.col('status') == 'active')
     .groupby('category')
     .agg(pl.col('revenue').sum())
-    .collect()  # Only executes when called
-)
-```
+    .collect() # Sorguyu optimize edip çalıştırır
+)</code></pre>
 
-### GroupBy Operations Comparison
-
-**Pandas:**
-```python
-# Single-threaded, memory-intensive
-df.groupby('region')['sales'].agg(['sum', 'mean', 'count'])
-```
-
-**Polars:**
-```python
-# Parallel processing, memory-efficient
-df.groupby('region').agg([
-    pl.col('sales').sum().alias('total_sales'),
-    pl.col('sales').mean().alias('avg_sales'), 
-    pl.col('sales').count().alias('num_sales')
-])
-```
-
-
-
-## Lazy Evaluation: The Secret Weapon
-
-Polars' lazy evaluation mode is where the real magic happens. Instead of executing 
-operations immediately, Polars builds an execution plan and optimizes it before 
-running. This enables:
-
-- **Query optimization**: Eliminates unnecessary computations
-- **Predicate pushdown**: Filters data at the file reading level
-- **Column pruning**: Only reads columns actually needed
-- **Automatic parallelization**: Distributes work across cores
-
-Example of lazy evaluation benefits:
-```python
-# This entire chain gets optimized before execution
-lazy_df = (pl.scan_csv('huge_file.csv')
-    .filter(pl.col('date') > '2024-01-01')
-    .groupby('user_id')
-    .agg(pl.col('amount').sum())
-    .sort('amount', descending=True)
-    .head(100)  # Polars stops when it has enough data
-)
-
-result = lazy_df.collect()  # Optimized execution
-```
-
-This approach turned a 15-minute operation into 45 seconds - not through code 
-changes, but through smarter execution planning.
-
-
-
-## Migration Strategy: How to Switch Successfully
-
-Based on real-world experience, here's the migration strategy that actually works:
-
-### Step 1: Start with the Slowest Scripts
-Profile your existing pandas code and identify the biggest performance bottlenecks. 
-Migrate these first for quick wins and momentum building.
-
-### Step 2: Use Hybrid Approach
-Write new code in Polars, but convert to pandas when needed for compatibility:
-```python
-import polars as pl
-
-# Do heavy lifting in Polars
-df = pl.read_csv('big_file.csv')
-result = df.filter(...).groupby(...).agg(...)
-
-# Convert to pandas only if downstream code requires it
-if needs_pandas:
-    pandas_result = result.to_pandas()
-```
-
-### Step 3: Create a Cheat Sheet
-Build a reference document mapping common pandas operations to their Polars equivalents:
-
-```
-Pandas: df[df['age'] > 25]
-Polars: df.filter(pl.col('age') > 25)
-
-<<<<<<< HEAD
-    <p style="margin-top: 3rem; text-align: center; color: #666;">
-      Bu içerik 24 Nisan 2026 tarihinde yayınlanmıştır.<br>
-=======
-Pandas: df.groupby('category')['value'].mean()
-Polars: df.groupby('category').agg(pl.col('value').mean())
-```
-
-### Step 4: Gradual Migration
-Don't rewrite everything at once. Focus on performance-critical paths first. 
-Non-critical scripts can stay in pandas if they're fast enough.
-
-
-
-## When to Choose Polars vs Pandas
-
-### Use Polars When:
-- Processing large datasets (>100MB)
-- Dealing with memory constraints
-- Needing parallel processing
-- Building new data pipelines
-- Performance is critical
-
-### Stick with Pandas When:
-- Working with small datasets
-- Team is pandas-only and timeline is tight
-- Deep integration with pandas-specific libraries
-- Quick prototypes or one-off scripts
-- Performance is already acceptable
-
-
-
-## Conclusion: The Future of Python Data Processing
-
-Polars represents the next generation of Python data processing. While pandas will 
-continue to be relevant for smaller datasets and educational purposes, Polars is 
-clearly superior for production workloads dealing with modern data volumes.
-
-The performance gains are undeniable, and the migration effort is manageable with 
-a strategic approach. For new projects and performance-critical applications, 
-Polars should be the default choice.
-
-Python data processing is at an inflection point. The tools have evolved to match 
-modern requirements. The question isn't whether Polars is better - it's how long 
-until everyone catches up.
-
+    <h2>Sonuç</h2>
+    <p>Polars, Python veri işleme dünyasının geleceğini temsil ediyor. Büyük veri setleri ve performans odaklı projeler için artık varsayılan tercih olmalıdır.</p>
 
     <p style="margin-top: 3rem; text-align: center; color: var(--color-text-light);">
-      Bu içerik 24 April 2026 tarihinde yayınlanmıştır.<br>
+      Bu içerik 24 Nisan 2026 tarihinde yayınlanmıştır.<br>
       Sorularınız için: <a href="mailto:yigit@javerto.com" style="color: var(--color-accent);">yigit@javerto.com</a>
->>>>>>> 492176a (Weekly Data Notes: Pandas vs Polars Performance Comparison - 20x speed improvements, 60-80% memory reduction, automatic parallel processing)
     </p>
   </div>
 
