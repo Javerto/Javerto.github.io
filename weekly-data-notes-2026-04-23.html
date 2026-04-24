@@ -50,6 +50,13 @@
       border-left: 4px solid #ffd700;
       margin: 1rem 0;
     }
+    .blog-content .trend-box {
+      background: #f8f9fa;
+      border-left: 4px solid #007bff;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body>
@@ -72,224 +79,187 @@
 
   <div class="blog-content">
     <h1>Haftalık Veri Notları - 23 Nisan 2026</h1>
-    <div class="date">Yayınlanma Tarihi: 23 Nisan 2026 | Güncelleme: 23 Nisan 2026 Saat 19:20</div>
+    <div class="date">Yayınlanma Tarihi: 23 Nisan 2026 | Cron Job Test: Başarılı!</div>
 
-    <h2>Finansal Veri Analizinde 2026 Trendleri - TEST GÜNCELLEME</h2>
+    <h2>2026'da Veri Bilimi ve Yapay Zeka Mühendisliği Trendleri</h2>
     
-    <p>Bu hafta finansal veri analizi, Python, SQL ve ETL teknolojilerindeki en son gelişmeleri inceliyoruz. Özellikle yapay zeka entegrasyonu ve gerçek zamanlı analiz sistemleri öne çıkıyor. Bu bir test güncellemesidir - cron job sistemi çalışıyor!</p>
+    <p>Bu hafta veri bilimi ve yapay zeka mühendisliğindeki en son trendleri inceliyoruz. 2026 itibariyle alanın ne kadar hızlı geliştiğini ve profesyonellerin hangi becerilere odaklanması gerektiğini göreceğiz.</p>
 
-    <div class="highlight">
-      <strong>Önemli Trendler:</strong>
+    <div class="trend-box">
+      <h3>📊 Ana Trendler:</h3>
       <ul>
-        <li>Yapay Zeka ile Geliştirilmiş Finansal Tahmin Modelleri</li>
-        <li>Gerçek Zamanlı Risk Yönetimi Sistemleri</li>
-        <li>Bulut Tabanlı ETL Çözümleri</li>
-        <li>SQL Performans Optimizasyonu</li>
+        <li><strong>Generative AI Ana Akım Haline Geldi:</strong> ChatGPT ve benzeri modeller artık günlük iş akışlarının bir parçası</li>
+        <li><strong>MLOps ve AI Deployment Beklentisi:</strong> Modellerin üretim ortamına taşınması standart beklenti haline geldi</li>
+        <li><strong>Gerçek Zamanlı Analiz Norm Oldu:</strong> Streaming veri işleme sistemleri rekabet avantajı sağlıyor</li>
+        <li><strong>Açıklanabilir ve Etik AI Kritik Önem Kazandı:</strong> Şeffaflık ve adalet ön plana çıktı</li>
+        <li><strong>Yetişmiş İnsan Gücü Açığı Devam Ediyor:</strong> Kalifiye profesyonellere talep rekor seviyede</li>
       </ul>
     </div>
 
-    <h2>Python ile Finansal Veri Analizi</h2>
+    <h2>Generative AI: Devrimden Rutine</h2>
     
-    <h3>Pandas ve NumPy Kullanarak Temel Analiz</h3>
-    
-    <p>Python finansal analiz için mükemmel bir araç. İşte basit bir hisse senedi analizi örneği:</p>
+    <p>Generative AI artık bir yenilik olmaktan çıkıp günlük iş süreçlerinin merkezinde yer alıyor. 2026'da şirketlerin %80'inden fazlası bu teknolojinin operasyonlarını dönüştüreceğine inanıyor. İşte bu dönüşümün somut örnekleri:</p>
 
-    <pre><code>import pandas as pd
-import numpy as np
-import yfinance as yf
-import matplotlib.pyplot as plt
-
-# Hisse senedi verilerini çekme
-def get_stock_data(ticker, period="1y"):
-    stock = yf.Ticker(ticker)
-    data = stock.history(period=period)
-    return data
-
-# Temel teknik analiz
-def technical_analysis(data):
-    # Basit Hareketli Ortalama
-    data['SMA_20'] = data['Close'].rolling(window=20).mean()
-    data['SMA_50'] = data['Close'].rolling(window=50).mean()
-    
-    # RSI Hesaplama
-    delta = data['Close'].diff()
-    gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
-    loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
-    rs = gain / loss
-    data['RSI'] = 100 - (100 / (1 + rs))
-    
-    return data
-
-# Örnek kullanım
-if __name__ == "__main__":
-    # Apple hisse senedi verileri
-    aapl_data = get_stock_data("AAPL")
-    analyzed_data = technical_analysis(aapl_data)
-    
-    print("Son 5 günlük veriler:")
-    print(analyzed_data.tail())
-    
-    # Grafik çizimi
-    plt.figure(figsize=(12, 6))
-    plt.plot(analyzed_data.index, analyzed_data['Close'], label='Kapanış Fiyatı')
-    plt.plot(analyzed_data.index, analyzed_data['SMA_20'], label='20 Günlük SMA')
-    plt.plot(analyzed_data.index, analyzed_data['SMA_50'], label='50 Günlük SMA')
-    plt.legend()
-    plt.title('AAPL Hisse Senedi Analizi')
-    plt.show()</code></pre>
-
-    <h2>SQL ile Finansal Veri Sorgulama</h2>
-    
-    <h3>Window Functions ile Gelişmiş Analiz</h3>
-    
-    <p>SQL'de pencere fonksiyonları finansal analiz için çok güçlüdür. İşte örnek sorgular:</p>
-
-    <pre><code>-- Portföy performans analizi
-WITH portfolio_performance AS (
-    SELECT 
-        stock_symbol,
-        trade_date,
-        close_price,
-        LAG(close_price) OVER (PARTITION BY stock_symbol ORDER BY trade_date) as prev_close,
-        -- Günlük getiri
-        (close_price - LAG(close_price) OVER (PARTITION BY stock_symbol ORDER BY trade_DATE)) / 
-        LAG(close_price) OVER (PARTITION BY stock_symbol ORDER BY trade_DATE) * 100 as daily_return
-    FROM stock_prices
-    WHERE trade_date >= CURRENT_DATE - INTERVAL '90 days'
-),
-performance_summary AS (
-    SELECT 
-        stock_symbol,
-        AVG(daily_return) as avg_daily_return,
-        STDDEV(daily_return) as volatility,
-        COUNT(*) as trading_days
-    FROM portfolio_performance
-    WHERE daily_return IS NOT NULL
-    GROUP BY stock_symbol
-)
-SELECT 
-    stock_symbol,
-    avg_daily_return,
-    volatility,
-    -- Sharpe Oranı (basitleştirilmiş)
-    avg_daily_return / NULLIF(volatility, 0) as sharpe_ratio
-FROM performance_summary
-ORDER BY sharpe_ratio DESC;</code></pre>
-
-    <h2>Modern ETL İşlem Hatları</h2>
-    
-    <h3>Python ile Basit ETL Pipeline</h3>
-    
-    <p>İşte finansal veriler için basit bir ETL pipeline örneği:</p>
-
-    <pre><code>import pandas as pd
-import requests
-import sqlite3
-from datetime import datetime
-
-class FinancialETL:
-    def __init__(self, api_key=None):
-        self.api_key = api_key
-        self.raw_data = None
-        self.processed_data = None
-    
-    def extract(self, source_type='api', **kwargs):
-        """Veri çekme işlemi"""
-        if source_type == 'api':
-            # Örnek API çağrısı
-            url = f"https://api.example.com/financial-data?apikey={self.api_key}"
-            response = requests.get(url)
-            self.raw_data = response.json()
-        elif source_type == 'file':
-            # Dosyadan okuma
-            file_path = kwargs.get('file_path')
-            self.raw_data = pd.read_csv(file_path)
-        
-        return self.raw_data
-    
-    def transform(self):
-        """Veri dönüşümü"""
-        if isinstance(self.raw_data, dict):
-            # JSON verisini DataFrame'e dönüştür
-            df = pd.DataFrame(self.raw_data['data'])
-        else:
-            df = self.raw_data.copy()
-        
-        # Temizleme ve dönüşüm işlemleri
-        df['date'] = pd.to_datetime(df['date'])
-        df['price'] = pd.to_numeric(df['price'], errors='coerce')
-        df['volume'] = pd.to_numeric(df['volume'], errors='coerce')
-        
-        # Hesaplanmış alanlar
-        df['price_change'] = df['price'].pct_change()
-        df['volume_ma'] = df['volume'].rolling(window=5).mean()
-        
-        self.processed_data = df.dropna()
-        return self.processed_data
-    
-    def load(self, target='database', **kwargs):
-        """Veri yükleme"""
-        if target == 'database':
-            conn = sqlite3.connect(kwargs.get('db_path', 'financial_data.db'))
-            self.processed_data.to_sql('financial_data', conn, if_exists='append', index=False)
-            conn.close()
-        elif target == 'file':
-            self.processed_data.to_csv(kwargs.get('output_path'), index=False)
-    
-    def run_pipeline(self, source_type='api', target='database', **kwargs):
-        """Tam ETL pipeline'ını çalıştır"""
-        print("Veri çekme başlıyor...")
-        self.extract(source_type, **kwargs)
-        
-        print("Veri dönüşümü başlıyor...")
-        self.transform()
-        
-        print("Veri yükleme başlıyor...")
-        self.load(target, **kwargs)
-        
-        print("ETL işlemi tamamlandı!")
-
-# Kullanım örneği
-if __name__ == "__main__":
-    etl = FinancialETL(api_key="your_api_key_here")
-    etl.run_pipeline(source_type='file', file_path='stock_data.csv', target='database', db_path='financial.db')</code></pre>
-
-    <h2>Teknoloji Trendleri ve Gelecek Öngörüleri</h2>
-    
-    <h3>2026'da Beklenen Gelişmeler</h3>
-    
-    <ul>
-      <li><strong>Yapay Zeka Entegrasyonu:</strong> GPT-4 ve daha gelişmiş modeller finansal tahminlerde daha fazla kullanılacak</li>
-      <li><strong>Gerçek Zamanlı Analiz:</strong> Streaming veri işleme sistemleri daha yaygın hale gelecek</li>
-      <li><strong>Bulut Teknolojileri:</strong> AWS, Azure ve GCP finansal hizmetler için özelleşmiş çözümler sunacak</li>
-      <li><strong>Güvenlik ve Uyumluluk:</strong> Finansal veri güvenliği standartları daha da sıkılaşacak</li>
-    </ul>
-
-    <h2>Pratik İpuçları ve En İyi Uygulamalar</h2>
-    
     <div class="highlight">
-      <strong>Python için İpuçları:</strong>
+      <strong>Pratik Kullanım Alanları:</strong>
       <ul>
-        <li>Büyük veri setleri için <code>pandas</code> yerine <code>polars</code> kullanmayı düşünün</li>
-        <li>Veri tiplerini optimize ederek bellek kullanımını azaltın</li>
-        <li>JIT derleme için <code>numba</code> kullanın</li>
+        <li>AI destekli veri analizi ve otomatik raporlama</li>
+        <li>Prompt engineering uzmanlığının ortaya çıkması</li>
+        <li>GPT-4 ve daha gelişmiş modellerin finansal tahminlerde kullanımı</li>
+        <li>Kod üretimi ve optimizasyonu</li>
       </ul>
     </div>
 
-    <div class="highlight">
-      <strong>SQL için İpuçları:</strong>
+    <h2>MLOps: Modelleri Üretime Taşıma Sanatı</h2>
+    
+    <h3>Docker ve Kubernetes ile Model Deployment</h3>
+    
+    <p>2026'da veri bilimcilerden sadece iyi modeller geliştirmeleri değil, aynı zamanda bu modelleri üretim ortamına taşımaları bekleniyor. İşte temel MLOps araçları:</p>
+
+    <pre><code># Örnek Dockerfile - ML Model Deployment
+FROM python:3.9-slim
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY model.pkl .
+COPY app.py .
+
+EXPOSE 8000
+CMD ["python", "app.py"]
+
+# API endpoint için Flask uygulaması
+from flask import Flask, request, jsonify
+import pickle
+import pandas as pd
+
+app = Flask(__name__)
+
+# Modeli yükle
+with open('model.pkl', 'rb') as f:
+    model = pickle.load(f)
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    data = request.get_json()
+    df = pd.DataFrame([data])
+    prediction = model.predict(df)
+    return jsonify({'prediction': prediction[0]})
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8000)</code></pre>
+
+    <h2>Gerçek Zamanlı Veri Analizi</h2>
+    
+    <h3>Apache Kafka ve Spark Streaming</h3>
+    
+    <p>Batch processing dönemi sona eriyor. Şirketler artık saniyeler içinde güncellenen streaming dashboard'lar kullanıyor. İşte gerçek zamanlı analiz için temel araçlar:</p>
+
+    <pre><code># PySpark ile streaming analiz örneği
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+
+spark = SparkSession.builder \
+    .appName("RealTimeAnalytics") \
+    .getOrCreate()
+
+# Kafka'dan veri okuma
+stream_df = spark \
+    .readStream \
+    .format("kafka") \
+    .option("kafka.bootstrap.servers", "localhost:9092") \
+    .option("subscribe", "user-events") \
+    .load()
+
+# JSON parsing
+schema = StructType([
+    StructField("user_id", StringType(), True),
+    StructField("event_type", StringType(), True),
+    StructField("timestamp", TimestampType(), True)
+])
+
+parsed_df = stream_df.select(
+    from_json(col("value").cast("string"), schema).alias("data")
+).select("data.*")
+
+# Gerçek zamanlı aggregasyon
+windowed_counts = parsed_df \
+    .withWatermark("timestamp", "10 minutes") \
+    .groupBy(
+        window("timestamp", "5 minutes"),
+        "event_type"
+    ) \
+    .count()
+
+# Sonuçları console'a yazdır
+query = windowed_counts \
+    .writeStream \
+    .outputMode("update") \
+    .format("console") \
+    .start()
+
+query.awaitTermination()</code></pre>
+
+    <h2>2026'da Gerekli Beceriler</h2>
+    
+    <div class="trend-box">
+      <h3>💼 Temel Beceri Seti:</h3>
       <ul>
-        <li>CTE'ler (Common Table Expressions) karmaşık sorguları basitleştirir</li>
-        <li>Window functions analitik işlemler için mükemmeldir</li>
-        <li>Index kullanımı sorgu performansını önemli ölçüde artırır</li>
+        <li><strong>Python:</strong> Veri biliminin tartışmasız lideri</li>
+        <li><strong>SQL:</strong> Veritabanı sorgulama için vazgeçilmez</li>
+        <li><strong>Machine Learning Framework'leri:</strong> Scikit-learn, TensorFlow, PyTorch</li>
+        <li><strong>Big Data Araçları:</strong> Apache Spark, Hadoop</li>
+        <li><strong>Cloud Platformları:</strong> AWS SageMaker, Azure ML, GCP AI Platform</li>
+        <li><strong>Containerization:</strong> Docker, Kubernetes</li>
+      </ul>
+    </div>
+
+    <h2>Kariyer Fırsatları ve Maaş Beklentileri</h2>
+    
+    <p>2026'da veri bilimi pozisyonları %35 büyüme oranıyla en hızlı büyüyen meslekler arasında yer alıyor. İşte güncel maaş aralıkları:</p>
+
+    <div class="highlight">
+      <strong>💵 Maaş Aralıkları (Yıllık):</strong>
+      <ul>
+        <li><strong>Junior Data Scientist:</strong> $80,000 - $120,000</li>
+        <li><strong>Mid-Level Data Scientist:</strong> $120,000 - $180,000</li>
+        <li><strong>Senior Data Scientist/AI Engineer:</strong> $180,000 - $250,000+</li>
+        <li><strong>AI Architect/Lead:</strong> $250,000+</li>
+      </ul>
+    </div>
+
+    <h2>Yeni Rol Tanımları</h2>
+    
+    <h3>Prompt Engineer</h3>
+    <p>Generative AI modelleri için etkili prompt'lar tasarlama uzmanlığı</p>
+    
+    <h3>AI Ethicist</h3>
+    <p>Yapay zeka sistemlerinin etik ve adil olmasını sağlama</p>
+    
+    <h3>Full-Stack AI Engineer</h3>
+    <p>Yazılım geliştirme ve AI uzmanlığını birleştiren hibrid rol</p>
+
+    <h2>Pratik İpuçları</h2>
+    
+    <div class="trend-box">
+      <h3>🚀 Başarı İçin Öneriler:</h3>
+      <ul>
+        <li><strong>Sürekli Öğrenme:</strong> Teknoloji hızla değişiyor, kendinizi güncel tutun</li>
+        <li><strong>Portfolyo Geliştirme:</strong> Gerçek projelerle becerilerinizi gösterin</li>
+        <li><strong>İletişim Becerileri:</strong> Teknik olmayan paydaşlara karmaşık konuları anlatabilin</li>
+        <li><strong>Takım Çalışması:</strong> Modern projeler disiplinler arası işbirliği gerektiriyor</li>
       </ul>
     </div>
 
     <h2>Sonuç</h2>
     
-    <p>Finansal veri analizi sürekli gelişen bir alan. Python ve SQL gibi temel araçlara hakim olmak, yeni teknolojileri öğrenmek ve en iyi uygulamaları takip etmek başarı için kritik önem taşıyor. Önümüzdeki haftalarda bu konulara daha derinlemesine bakmaya devam edeceğiz.</p>
+    <p>2026, veri bilimi ve yapay zeka mühendisliği için heyecan verici bir dönem. Generative AI'nin ana akım haline gelmesi, MLOps'un standartlaşması ve gerçek zamanlı analizin norm olmasıyla birlikte, profesyonellerden beklenen beceriler de önemli ölçüde değişti.</p>
 
-    <p><strong>Bir sonraki hafta:</strong> Makine öğrenmesi ile finansal tahmin modelleri ve backtesting stratejileri.</p>
+    <p>Başarılı olmak için sadece teknik becerilere değil, aynı zamanda iş birliği, iletişim ve sürekli öğrenme yeteneğine de sahip olmak gerekiyor. Alanın hızla gelişmesi, adapte olabilen profesyoneller için sayısız fırsat yaratıyor.</p>
+
+    <p><strong>Bir sonraki hafta:</strong> Cloud-native data engineering ve serverless machine learning mimarileri.</p>
 
     <p style="margin-top: 3rem; text-align: center; color: #666;">
       Bu içerik 23 Nisan 2026 tarihinde yayınlanmıştır.<br>
